@@ -76,8 +76,12 @@ class MatchEntry:
 
         elo_change = QtWidgets.QLabel(rating_string)
 
-        self.widgets = (*team_widgets, map_name, date, mode, result,
-                        elo_change)
+        # APM
+        apm =  QtWidgets.QLabel(map_data.get(match_data.get("apm", "?"), "?"))
+
+
+        self.widgets = (*team_widgets, map_name, date, mode, result, elo_change, apm)
+
 
         for item in self.widgets:
             item.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
@@ -136,6 +140,7 @@ class MatchHistoryTab(QtWidgets.QWidget):
         self.scroll_layout.addWidget(QtWidgets.QLabel("Mode"), 0, 4)
         self.scroll_layout.addWidget(QtWidgets.QLabel("Result"), 0, 5)
         self.scroll_layout.addWidget(QtWidgets.QLabel("Rating"), 0, 6)
+        self.scroll_layout.addWidget(QtWidgets.QLabel("APM"), 0, 7)
 
         self.header_widgets = set()
         for i in range(self.scroll_layout.count()):

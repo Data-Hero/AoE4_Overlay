@@ -12,6 +12,7 @@ import overlay.helper_func as hf
 from overlay.api_checking import Api_checker, get_full_match_history
 from overlay.logging_func import get_logger, log_match
 from overlay.settings import settings
+from overlay.tab_apm import ApmTab
 from overlay.tab_buildorders import BoTab
 from overlay.tab_games import MatchHistoryTab
 from overlay.tab_graphs import GraphTab
@@ -19,6 +20,7 @@ from overlay.tab_override import OverrideTab
 from overlay.tab_random import RandomTab
 from overlay.tab_settings import SettingsTab
 from overlay.tab_stats import StatsTab
+from overlay.tab_apm import ApmTab
 from overlay.websocket import Websocket_manager
 from overlay.worker import scheldule
 
@@ -45,14 +47,18 @@ class TabWidget(QtWidgets.QTabWidget):
         self.override_tab.update_override.connect(self.override_update_event)
         self.settigns_tab = SettingsTab(self)
         self.settigns_tab.new_profile.connect(self.new_profile_found)
+        self.apm_tab = ApmTab(self)
 
         self.addTab(self.settigns_tab, "Settings")
         self.addTab(self.games_tab, "Games")
         self.addTab(self.graph_tab, "Rating")
         self.addTab(self.stats_tab, "Stats")
+        self.addTab(self.apm_tab, "APM")
         self.addTab(self.override_tab, "Override")
         self.addTab(self.buildorder_tab, "Build orders")
         self.addTab(self.random_tab, "Randomize")
+        
+
 
     def start(self):
         logger.info(
